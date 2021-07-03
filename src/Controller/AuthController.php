@@ -78,6 +78,6 @@ class AuthController extends AbstractController
 	 */
 	public function game(): Response
 	{
-		return $this->render('auth/index.html.twig', []);
+		return $this->render('game/index.html.twig', []);
 	}
 }
