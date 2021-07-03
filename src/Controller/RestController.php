@@ -7,6 +7,7 @@ use App\Entity\RoundTask;
 use App\Entity\Task;
 use App\Entity\User;
 use App\Entity\UserRound;
+use App\Service\RoundServiceInterface;
 use FOS\RestBundle\Controller\AbstractFOSRestController;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -19,6 +20,20 @@ use Symfony\Component\Serializer\Serializer;
 
 class RestController extends AbstractFOSRestController
 {
+	/**
+	 * @var RoundServiceInterface
+	 */
+	private $roundService;
+
+	/**
+	 * RestController constructor.
+	 * @param RoundServiceInterface $roundService
+	 */
+	public function __construct(RoundServiceInterface $roundService)
+	{
+		$this->roundService = $roundService;
+	}
+
 
 	/**
 	 * @Route ("/api/users")
@@ -42,62 +57,7 @@ class RestController extends AbstractFOSRestController
 	 */
 	public function startRound(): Response
 	{
-
-		$round = $this->getDoctrine()->getRepository(Round::class)
-			->findOneBy([
-				'status' => Round::STATUSES['ACTIVE']
-			]);
-
-		if (!$round)
-		{
-			$round = new Round();
-			$round->setLocationName("longendorf")
-				->setStatus(Round::STATUSES['ACTIVE'])
-				->setUntil((new \DateTimeImmutable())->add(new \DateInterval("PT15M")));
-
-			$this->getDoctrine()->getManager()->persist($round);
-
-			$tasks = $this->getDoctrine()->getRepository(Task::class)
-				->findAll();
-
-			foreach ($tasks as $task)
-			{
-				$roundTask = new RoundTask();
-				$roundTask->setTask($task)
-					->setRound($round);
-
-				$this->getDoctrine()->getManager()->persist($roundTask);
-			}
-
-			$users = $this->getDoctrine()->getRepository(User::class)
-				->findBy(['active' => true]);
-
-			$expect = ['GOOD' => floor(count($users) * 0.8), 'BAD' => floor(count($users) * 0.2)];
-			$usedRoles = ['GOOD' => 0, 'BAD' => 0];
-			foreach ($users as $user)
-			{
-				$role = null;
-				while (is_null($role))
-				{
-					$roles = UserRound::ROLES;
-					shuffle($roles)[0];
-					$role = $roles[0];
-//					var_dump($role);die;
-					if ($usedRoles[$role] < $expect[$role])
-						$usedRoles[$role] += $usedRoles[$role];
-				}
-				$userRound = new UserRound();
-				$userRound->setRole($role)
-					->setStatus(UserRound::STATUTES['ACTIVE'])
-					->setUser($user)
-					->setRound($round);
-
-				$this->getDoctrine()->getManager()->persist($userRound);
-			}
-
-			$this->getDoctrine()->getManager()->flush();
-		}
-
+		$this->roundService->startRound();
 		$view = $this->view(null, 200);
 		return $this->handleView($view);
 	}
@@ -108,14 +68,18 @@ class RestController extends AbstractFOSRestController
 	 */
 	public function getActiveRound(): Response
 	{
-
-		$round = $this->getDoctrine()->getRepository(Round::class)
-			->findOneBy([
-				'status' => Round::STATUSES['ACTIVE']
-			]);
-
-		$view = $this->view($round, 200);
+		$round = $this->roundService->getActiveRound();
 		return $this->normalize($round);
+	}
+
+	/**
+	 * @Route ("/api/round/timer")
+	 * @return Response
+	 */
+	public function getTimer(): Response
+	{
+		$view = $this->view($this->roundService->getTimer(), 200);
+		return $this->handleView($view);
 	}
 
 	private function normalize($object)
