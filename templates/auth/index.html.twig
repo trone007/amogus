@@ -9,7 +9,7 @@
 
 <div class="amogus-container">
     <div class="amogus-start-buttons-container">
-        <div class="amogus-button amogus-button-specifications" href="#"><span>?</span></div>
+        <div class="amogus-button amogus-button-specifications" onclick="showSpecificationPopup()" href="#"><span>?</span></div>
         <div class="amogus-button amogus-buttons-start" onclick="showLoginPopup()"><span>Начать игру</span></div>
     </div>
     <div id="startPopup" class="amogus-start-container amogus-start-container-hide">
@@ -24,7 +24,7 @@
             </form>
         </div>
     </div>
-    <div class="amogus-specificationis-container amogus-specificationis-container-hide">
+    <div id="specificationPopup" class="amogus-specificationis-container amogus-specificationis-container-hide">
         <div class="amogus-handle">
         </div>
         <div class="amogus-specificationis-text">
@@ -46,7 +46,7 @@
 
         </div>
     </div>
-    <div class="amogus-dark-backgruond amogus-dark-background-hide">
+    <div id="darkBackground" class="amogus-dark-backgruond amogus-dark-background-hide">
     </div>
 </div>
 </body>
@@ -55,6 +55,16 @@
 <script>
 function showLoginPopup() {
 	document.getElementById('startPopup').className = 'amogus-start-container amogus-start-container-show';
+	document.getElementById('darkBackground').className = 'amogus-dark-backgruond amogus-dark-background-show';
+}
+function showSpecificationPopup() {
+	document.getElementById('specificationPopup').className = 'amogus-specificationis-container amogus-specificationis-container-show';
+	document.getElementById('darkBackground').className = 'amogus-dark-backgruond amogus-dark-background-show';
+}
+document.getElementById('darkBackground').onclick = function() {
+	document.getElementById('startPopup').className = 'amogus-start-container amogus-start-container-hide';
+	document.getElementById('specificationPopup').className = 'amogus-specificationis-container amogus-specificationis-container-hide';
+	document.getElementById('darkBackground').className = 'amogus-dark-backgruond amogus-dark-background-hide';
 }
 function onFileSelected(event) {
 	var selectedFile = event.target.files[0];
