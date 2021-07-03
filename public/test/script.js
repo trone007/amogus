@@ -72,12 +72,15 @@
 		document.addEventListener("click", function() {
 			console.log("click on document");
 			var userId = 1;
+			var login = 'loginName';
 			var position1 = 54.660901;
 			var position2 = 20.932067;
 			var coordinate = {position1, position2};
 			const message = {
 				userId : userId,
+				login : login,
 				coordinate : coordinate,
+				//method : 'getId',
 				//method : 'getUser',
 				//method : 'getLogin',
 				//method : 'getAvatar',

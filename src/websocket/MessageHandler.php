@@ -41,6 +41,9 @@ class MessageHandler implements MessageComponentInterface
 								  ->findOneBy(['id' => $msgDecode['userId']]);
 
 			switch ($msgDecode['method']){
+				case 'getId':
+					$res = $user->getId();
+					break;
 				case 'getUser':
 					$res = $user->getName();
 					break;
@@ -79,10 +82,7 @@ class MessageHandler implements MessageComponentInterface
 			{
 				continue;
 			}
-
-			// $connection->send($msg);
-
-			//$connection->send($user->getName());
+			
 			$connection->send($res);
 		}
 	}
