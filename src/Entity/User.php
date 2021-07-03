@@ -3,10 +3,15 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\File\File;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
+ * @Vich\Uploadable
  */
 class User
 {
@@ -20,7 +25,7 @@ class User
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $тфname;
+    private $name;
 
     /**
      * @ORM\Column(type="string", length=511, nullable=true)
@@ -28,23 +33,51 @@ class User
     private $avatar;
 
     /**
+	 * @Vich\UploadableField(mapping="avatar_file", fileNameProperty="image")
+	 * @var File
+	 */
+    private $avatarFile;
+
+    /**
      * @ORM\Column(type="string", length=255)
      */
     private $login;
+
+    /**
+     * @ORM\OneToMany(targetEntity=UserRound::class, mappedBy="user")
+     */
+    private $userRounds;
+
+    /**
+     * @ORM\OneToMany(targetEntity=RoundTask::class, mappedBy="completedBy")
+     */
+    private $roundTasks;
+
+	/**
+	 * @ORM\Column(type="datetime")
+	 * @var \DateTime
+	 */
+    private $updatedAt;
+
+    public function __construct()
+    {
+        $this->userRounds = new ArrayCollection();
+        $this->roundTasks = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getтфname(): ?string
+    public function getName(): ?string
     {
-        return $this->тфname;
+        return $this->name;
     }
 
-    public function setтфname(string $тфname): self
+    public function setName(string $name): self
     {
-        $this->тфname = $тфname;
+        $this->тфname = $name;
 
         return $this;
     }
@@ -72,4 +105,111 @@ class User
 
         return $this;
     }
+
+    /**
+     * @return Collection|UserRound[]
+     */
+    public function getUserRounds(): Collection
+    {
+        return $this->userRounds;
+    }
+
+    public function addUserRound(UserRound $userRound): self
+    {
+        if (!$this->userRounds->contains($userRound)) {
+            $this->userRounds[] = $userRound;
+            $userRound->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUserRound(UserRound $userRound): self
+    {
+        if ($this->userRounds->removeElement($userRound)) {
+            // set the owning side to null (unless already changed)
+            if ($userRound->getUser() === $this) {
+                $userRound->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|RoundTask[]
+     */
+    public function getRoundTasks(): Collection
+    {
+        return $this->roundTasks;
+    }
+
+    public function addRoundTask(RoundTask $roundTask): self
+    {
+        if (!$this->roundTasks->contains($roundTask)) {
+            $this->roundTasks[] = $roundTask;
+            $roundTask->setCompletedBy($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRoundTask(RoundTask $roundTask): self
+    {
+        if ($this->roundTasks->removeElement($roundTask)) {
+            // set the owning side to null (unless already changed)
+            if ($roundTask->getCompletedBy() === $this) {
+                $roundTask->setCompletedBy(null);
+            }
+        }
+
+        return $this;
+    }
+
+	public function setImageFile(File $avatarFile = null)
+	{
+		$this->avatarFile = $avatarFile;
+
+		if ($avatarFile) {
+			// if 'updatedAt' is not defined in your entity, use another property
+			$this->updatedAt = new \DateTime('now');
+		}
+	}
+
+	/**
+	 * @return File
+	 */
+	public function getAvatarFile(): File
+	{
+		return $this->avatarFile;
+	}
+
+	/**
+	 * @return \DateTime
+	 */
+	public function getUpdatedAt(): \DateTime
+	{
+		return $this->updatedAt;
+	}
+
+	/**
+	 * @param File $avatarFile
+	 * @return User
+	 */
+	public function setAvatarFile(File $avatarFile): User
+	{
+		$this->avatarFile = $avatarFile;
+		return $this;
+	}
+
+	/**
+	 * @param \DateTime $updatedAt
+	 * @return User
+	 */
+	public function setUpdatedAt(\DateTime $updatedAt): User
+	{
+		$this->updatedAt = $updatedAt;
+		return $this;
+	}
+
 }

@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\TaskRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -31,6 +33,16 @@ class Task
      * @ORM\Column(type="string", length=255)
      */
     private $type;
+
+    /**
+     * @ORM\OneToMany(targetEntity=RoundTask::class, mappedBy="task")
+     */
+    private $roundTasks;
+
+    public function __construct()
+    {
+        $this->roundTasks = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -69,6 +81,36 @@ class Task
     public function setType(string $type): self
     {
         $this->type = $type;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|RoundTask[]
+     */
+    public function getRoundTasks(): Collection
+    {
+        return $this->roundTasks;
+    }
+
+    public function addRoundTask(RoundTask $roundTask): self
+    {
+        if (!$this->roundTasks->contains($roundTask)) {
+            $this->roundTasks[] = $roundTask;
+            $roundTask->setTask($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRoundTask(RoundTask $roundTask): self
+    {
+        if ($this->roundTasks->removeElement($roundTask)) {
+            // set the owning side to null (unless already changed)
+            if ($roundTask->getTask() === $this) {
+                $roundTask->setTask(null);
+            }
+        }
 
         return $this;
     }
