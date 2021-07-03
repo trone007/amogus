@@ -95,10 +95,10 @@ class MessageHandler implements MessageComponentInterface
 					$res = $this->roundService->startRound();
 					break;
 				case 'getCompletedTasks':
-					$res = $this->roundService->getCompletedTasks();
+					$res = $this->roundService->getCompletedTasks('');
 					break;
 				case 'getCurrentRole':
-					$res = $this->roundService->getCurrentRole();
+					$res = $this->roundService->getCurrentRole($msgDecode['userId']);
 					break;
 				case 'startDiscussion':
 					$res = $this->roundService->startDiscussion();

@@ -173,7 +173,7 @@ class RoundService implements RoundServiceInterface
 		}
 	}
 
-	public function getCompletedTasks($type)
+	public function getCompletedTasks($type = null)
 	{
 		$round = $this->getActiveRound();
 
