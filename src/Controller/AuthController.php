@@ -15,8 +15,6 @@ class AuthController
 	 */
 	public function index(): Response
 	{
-		return new Response(
-			'<html><body>Ну что, погнали</body></html>'
-		);
+		return $this->render('auth/index.html.twig', []);
 	}
 }
