@@ -59,6 +59,11 @@ class User
 	 */
     private $updatedAt;
 
+	/**
+	 * @ORM\Column(type="boolean")
+	 */
+    private $active;
+
     public function __construct()
     {
         $this->userRounds = new ArrayCollection();
@@ -211,5 +216,24 @@ class User
 		$this->updatedAt = $updatedAt;
 		return $this;
 	}
+
+	/**
+	 * @return mixed
+	 */
+	public function getActive()
+	{
+		return $this->active;
+	}
+
+	/**
+	 * @param mixed $active
+	 * @return User
+	 */
+	public function setActive($active)
+	{
+		$this->active = $active;
+		return $this;
+	}
+
 
 }
