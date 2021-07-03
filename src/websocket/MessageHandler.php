@@ -75,6 +75,34 @@ class MessageHandler implements MessageComponentInterface
 				case 'getActive':
 					$res = $user->getActive();
 					break;
+
+				case 'completeTask':
+					$res = $this->roundService->completeTask($msgDecode['taskId'], $msgDecode['userId'], $msgDecode);
+					break;
+				case 'changeRole':
+					$res = $this->roundService->changeRole($msgDecode['userId'], 'negative');
+					break;
+				case 'getActiveRound':
+					$res = $this->roundService->getActiveRound();
+					break;
+				case 'getTimer':
+					$res = $this->roundService->getTimer();
+					break;
+				case 'completeActiveRound':
+					$res = $this->roundService->completeActiveRound();
+					break;
+				case 'startRound':
+					$res = $this->roundService->startRound();
+					break;
+				case 'getCompletedTasks':
+					$res = $this->roundService->getCompletedTasks();
+					break;
+				case 'getCurrentRole':
+					$res = $this->roundService->getCurrentRole();
+					break;
+				case 'startDiscussion':
+					$res = $this->roundService->startDiscussion();
+					break;
 				default: $res = $msg;
 			}
 		}
@@ -104,5 +132,10 @@ class MessageHandler implements MessageComponentInterface
 		file_put_contents('log.txt', $e->getMessage());
 		$this->connections->detach($conn);
 		$conn->close();
+	}
+
+	public function bar()
+	{
+
 	}
 }
