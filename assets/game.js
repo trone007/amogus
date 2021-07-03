@@ -1,8 +1,4 @@
 import {createApp} from 'vue'
-import Map from './components/Map.vue'
+import Game from './components/Game.vue'
 
-createApp(Map).mount('#game');
-
-console.log("vv3");
-//
-// new Vue({});
+createApp(Game).mount('#game');
