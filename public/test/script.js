@@ -78,7 +78,15 @@
 			const message = {
 				userId : userId,
 				coordinate : coordinate,
-				method : 'getUser',
+				//method : 'getUser',
+				//method : 'getLogin',
+				//method : 'getAvatar',
+				//method : 'getUserRounds',
+				//method : 'getRoundTasks',
+				//method : 'getAvatarFile',
+				//method : 'getUpdatedAt',
+				//method : 'getActive',
+				//method : 'other',
 			};
 			socket.send(JSON.stringify(message));
 		});

@@ -30,17 +30,47 @@ class MessageHandler implements MessageComponentInterface
 
 	public function onMessage(ConnectionInterface $from, $msg)
 	{
-		$msg = json_decode($msg, true);
+		$msgDecode = json_decode($msg, true);
 
-		switch ($msg['method']){
-			case 'getUser':
-				/**
-				 * @var User $user
-				 */
-				$user = $this->manager->getRepository(User::class)
-							 ->findOneBy(['id' => $msg['userId']]);
+		if (isset($msgDecode['method']))
+		{
+			/**
+			 * @var User $user
+			 */
+			$user = $this->manager->getRepository(User::class)
+								  ->findOneBy(['id' => $msgDecode['userId']]);
 
-				break;
+			switch ($msgDecode['method']){
+				case 'getUser':
+					$res = $user->getName();
+					break;
+				case 'getLogin':
+					$res = $user->getLogin();
+					break;
+				case 'getAvatar':
+					$res = $user->getAvatar();
+					break;
+				case 'getUserRounds':
+					$res = $user->getUserRounds();
+					break;
+				case 'getRoundTasks':
+					$res = $user->getRoundTasks();
+					break;
+				case 'getAvatarFile':
+					$res = $user->getAvatarFile();
+					break;
+				case 'getUpdatedAt':
+					$res = $user->getUpdatedAt();
+					break;
+				case 'getActive':
+					$res = $user->getActive();
+					break;
+				default: $res = $msg;
+			}
+		}
+		else
+		{
+			$res = $msg;
 		}
 
 		foreach($this->connections as $connection)
@@ -51,7 +81,9 @@ class MessageHandler implements MessageComponentInterface
 			}
 
 			// $connection->send($msg);
-			$connection->send($user->getName());
+
+			//$connection->send($user->getName());
+			$connection->send($res);
 		}
 	}
 
