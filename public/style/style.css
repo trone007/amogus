@@ -34,7 +34,7 @@ body {
     height: 100vh;
     overflow: hidden;
     background-color: yellow;
-    background-image: url('public/style/logo.png');
+    background-image: url('logo.png');
     background-size: 100%;
     background-repeat: no-repeat;
 }
@@ -122,7 +122,7 @@ body {
     margin-right: auto;
     margin-bottom: 100px;
     border-radius: 500px;
-    background-image: url('public/style/camera.svg');
+    background-image: url('camera.svg');
     background-repeat: no-repeat;
     background-size: 60%;
     background-position: center;
