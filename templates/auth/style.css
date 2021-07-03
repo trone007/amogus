@@ -1,0 +1,172 @@
+.html {
+    font-family: Arial, serif;
+}
+
+body {
+    margin: 0;
+}
+
+.amogus-start-title {
+    font-size: 50px;
+}
+
+.amogus-start-title {
+    text-align: center;
+}
+
+.amogus-start-input {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 80%;
+    height: 50px;
+    margin-bottom: 10px;
+    font-size: 30px;
+}
+
+.amogus-container {
+    position: relative;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.amogus-start-buttons-container {
+    width: 100%;
+    margin-top: 50px;
+    position: absolute;
+    bottom: 0;
+}
+
+.amogus-button {
+    width: 90%;
+    height: 120px;
+    padding-top: 20px;
+    text-align: center;
+    font-size: 80px;
+    margin-left: auto;
+    margin-right: auto;
+    border: 1px #ccc solid;
+    margin-bottom: 50px;
+}
+
+.amogus-buttons-start {
+    background-color: #ccc;
+}
+
+.amogus-name-field {
+    width: 86%;
+    height: 120px;
+    font-size: 45px;
+    text-align: left;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+    border: 1px #ccc solid;
+    margin-bottom: 30px;
+    padding: 0 0 0 4%;
+}
+
+.amogus-start-photo-container {
+    width: 500px;
+    height: 500px;
+    background-color: #ccc;
+    margin: 100px auto;
+    border-radius: 500px;
+}
+
+.amogus-imposter-project {
+    background-color: #ccc;
+    height: 1600px;
+}
+
+.amogus-tasks-container {
+    border-top: 1px black solid;
+    font-size: 30px;
+}
+
+.amogus-task {
+    display: flex;
+    justify-content: space-between;
+}
+
+.amogus-task-take-button {
+    border: 1px black solid;
+
+}
+
+.amogus-start-popup {
+    position: absolute;
+    border-radius: 50px;
+    width: 96%;
+    background-color: #fff;
+    left: 2%;
+    top: 20%;
+    z-index: 200;
+}
+
+.amogus-start-popup-show {
+    display: block;
+}
+
+.amogus-start-popup-hide {
+    display: none;
+}
+
+.amogus-dark-backgruond {
+    background: rgba(0, 0, 0, 0.5);
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 100%;
+    z-index: 100;
+}
+
+.amogus-dark-background-show {
+    display: block;
+}
+
+.amogus-dark-background-hide {
+    display: none;
+}
+
+.amogus-specificationis-container {
+    position: absolute;
+    top: 3%;
+    z-index: 200;
+    height: 100%;
+}
+
+.amogus-specifications-header {
+    font-weight: bold;
+    font-size: 30px;
+}
+
+.amogus-specificationis-text {
+    background-color: #fff;
+    border-radius: 50px 50px 0 0;
+    height: 98.5%;
+    padding-top: 20px;
+    padding-left: 20px;
+    padding-right: 20px;
+    font-size: 20px;
+}
+
+.amogus-specificationis-handle {
+    width: 40%;
+    margin-left: auto;
+    margin-right: auto;
+    height: 0.5%;
+    background-color: #fff;
+    border-radius: 10px;
+    margin-bottom: 1%;
+}
+
+.amogus-specificationis-container-show {
+    display: block;
+}
+
+.amogus-specificationis-container-hide {
+    display: none;
+}
