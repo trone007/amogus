@@ -71,19 +71,20 @@
 
 		document.addEventListener("click", function() {
 			console.log("click on document");
-			var userId = 2;
+			var userId = 1;
 			var position1 = 54.660901;
 			var position2 = 20.932067;
 			var coordinate = {position1, position2};
 			const message = {
 				userId : userId,
 				coordinate : coordinate,
+				method : 'getUser',
 			};
 			socket.send(JSON.stringify(message));
 		});
 
 		socket.addEventListener("message", function(e) {
-			const message = JSON.parse (e.data);
+			const message = e.data;
 			console.log(message);
 		});
 	}
