@@ -31,7 +31,7 @@ class User
     /**
      * @ORM\Column(type="string", length=511, nullable=true)
      */
-    private $avatar;
+    private $image;
 
     /**
 	 * @Vich\UploadableField(mapping="avatar_file", fileNameProperty="image")
@@ -92,14 +92,14 @@ class User
         return $this;
     }
 
-    public function getAvatar(): ?string
+    public function getImage(): ?string
     {
-        return $this->avatar;
+        return $this->image;
     }
 
-    public function setAvatar(?string $avatar): self
+    public function setImage(?string $avatar): self
     {
-        $this->avatar = $avatar;
+        $this->image = $avatar;
 
         return $this;
     }

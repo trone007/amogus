@@ -16,11 +16,11 @@
         <div class="amogus-handle">
         </div>
         <div class="amogus-start-form">
-            <form type="POST" enctype="multipart/form-data" action="/game">
-                <label for="fileInput" id="imageContainer" class="amogus-start-photo-container"></label>
-                <input hidden id="fileInput" type="file" onchange="onFileSelected(event)" name="photo">
-                <input name="name" class="amogus-name-field" placeholder="Введите имя">
-                <button class="amogus-button amogus-buttons-start"><span>Начать игру</span></button>
+            <form name="user_form" method="post" action="/login" novalidate="novalidate" enctype="multipart/form-data">
+                <label for="user_form_avatarFile_file" id="imageContainer" class="amogus-start-photo-container"></label>
+                <input hidden id="user_form_avatarFile_file" name="user_form[avatarFile][file]"  type="file" onchange="onFileSelected(event)">
+                <input id="user_form_name" name="user_form[name]" class="amogus-name-field" placeholder="Введите имя">
+                <button id="user_form_save" name="user_form[save]" class="amogus-button amogus-buttons-start"><span>Начать игру</span></button>
             </form>
         </div>
     </div>

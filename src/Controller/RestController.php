@@ -82,15 +82,22 @@ class RestController extends AbstractFOSRestController
 		return $this->handleView($view);
 	}
 
+
+	/**
+	 * @Route ("/api/round/change-role")
+	 * @return Response
+	 */
+	public function changeRole(): Response
+	{
+		$userId = $this->get('session')->get('userId');
+		$this->roundService->changeRole($userId, "BAD");
+		$view = $this->view(null, 200);
+
+		return $this->handleView($view);
+	}
+
 	private function normalize($object)
 	{
-//		$normalizer = new ObjectNormalizer();
-//		$normalizer->setCircularReferenceLimit(1);
-//
-//		$normalizer->setCircularReferenceHandler(function ($object) {
-//			return $object->getName();
-//		});
-		$encoder = new JsonEncoder();
 		$defaultContext = [
 			AbstractNormalizer::CIRCULAR_REFERENCE_HANDLER => function ($object, $format, $context) {
 				return $object->getId();

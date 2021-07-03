@@ -33,6 +33,11 @@ class RoundService implements RoundServiceInterface
 	{
 		$round = $this->getActiveRound();
 
+		if (!$round)
+		{
+			return;
+		}
+
 		$task = $this->manager->getRepository(Task::class)->find($taskId);
 
 		if (!$task)
@@ -89,8 +94,6 @@ class RoundService implements RoundServiceInterface
 
 		$this->manager->persist($userRound);
 		$this->manager->flush();
-
-		return $userRound;
 	}
 
 	public function getActiveRound(): ?Round
@@ -104,6 +107,11 @@ class RoundService implements RoundServiceInterface
 	public function getTimer()
 	{
 		$round = $this->getActiveRound();
+		if (!$round)
+		{
+			return 0;
+		}
+
 		$diff = $round->getUntil()->getTimestamp() - (new \DateTime())->getTimestamp();
 		return $diff < 0 ? 0 : $diff;
 	}
@@ -112,10 +120,15 @@ class RoundService implements RoundServiceInterface
 	{
 		$round = $this->getActiveRound();
 
+		if (!$round)
+		{
+			return;
+		}
+
 		$round->setStatus(Round::STATUSES['COMPLETED']);
 
 		$this->manager->persist($round);
-		$this->manager->save();
+		$this->manager->flush();
 	}
 
 	public function startRound()
@@ -176,6 +189,10 @@ class RoundService implements RoundServiceInterface
 	public function getCompletedTasks($type = null)
 	{
 		$round = $this->getActiveRound();
+		if (!$round)
+		{
+			return [];
+		}
 
 		$qb = $this->manager->createQueryBuilder(); // $em is your entity manager
 		$completedTasks = $qb->select("r")
@@ -192,6 +209,11 @@ class RoundService implements RoundServiceInterface
 	public function getCurrentRole($userId)
 	{
 		$round = $this->getActiveRound();
+		if (!$round)
+		{
+			return '';
+		}
+
 		$user = $this->manager->getRepository(User::class)->find($userId);
 
 		/**
