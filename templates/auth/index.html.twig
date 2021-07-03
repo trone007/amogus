@@ -15,9 +15,10 @@
         <div class="amogus-handle">
         </div>
         <div class="amogus-start-form">
-            <form>
-                <div class="amogus-start-photo-container"><input hidden type="file"></div>
-                <input class="amogus-name-field" placeholder="Введите имя">
+            <form type="POST" enctype="multipart/form-data">
+                <label for="fileInput" class="amogus-start-photo-container"></label>
+                <input hidden id="fileInput" type="file" name="photo">
+                <input name="name" class="amogus-name-field" placeholder="Введите имя">
                 <button class="amogus-button amogus-buttons-start"><span>Начать игру</span></button>
             </form>
         </div>

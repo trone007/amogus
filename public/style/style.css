@@ -134,6 +134,7 @@ button.amogus-buttons-start {
     background-size: 60%;
     background-position: center;
     background-color: yellow;
+    display: block;
 }
 
 .amogus-imposter-project {
