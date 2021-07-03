@@ -9,36 +9,49 @@
 <script>
 
 export default {
-
+	data() {
+		return {
+			map: null,
+			connection: null,
+			persons: [],
+		}
+	},
 	mounted()
 	{
 		const mapScript = document.createElement('script')
 		mapScript.setAttribute('src', 'https://api-maps.yandex.ru/2.1/?apikey=bfd21a41-ba64-49a3-a2bd-b7d139932aa5&lang=ru_RU')
 		document.head.appendChild(mapScript)
-
 		mapScript.onload = () => ymaps.ready(this.initMap);
+
+		this.connection = new WebSocket("ws://localhost:3001");
+		//
+		// socket.addEventListener("open", function ()
+		// {
+		// 	console.log("CONNECTED");
+		// 	console.log("open");
+		// });
+
+
 	},
 
 	methods: {
 		initMap()
 		{
-			const myMap = new ymaps.Map("map", {
+			this.map = new ymaps.Map("map", {
 				center: [54.660901, 20.932067],
 				zoom: 19,
-				// behaviors: [],
+				behaviors: [],
 				controls: [],
 				type: 'yandex#hybrid',
 			});
 
 
-			const location = ymaps.geolocation.get({
-				// mapStateAutoApply: true
-			});
+			const location = ymaps.geolocation.get();
 			location.then(
 				result =>
 				{
-					myMap.setCenter(result.geoObjects.position, 19);
-
+					console.log(result.geoObjects.position);
+					this.map.setCenter(result.geoObjects.position, 19);
 
 					const me = new ymaps.Placemark(result.geoObjects.position, {}, {
 						iconLayout: 'default#image',
@@ -47,79 +60,39 @@ export default {
 						iconImageOffset: [-15, -15]
 					});
 					const fov = new ymaps.Circle([result.geoObjects.position, 20]);
-					myMap.geoObjects.add(me);
-					myMap.geoObjects.add(fov);
+					this.map.geoObjects.add(me);
+					this.map.geoObjects.add(fov);
 
+					const message = {
+						userId: 1,
+						login: 'login',
+						position: result.geoObjects.position,
+					};
+					this.connection.send(JSON.stringify(message));
 
-					const coor1 = [
-						result.geoObjects.position[0] + 0.0001,
-						result.geoObjects.position[1] + 0.0001
-					];
-					const pers1 = new ymaps.Placemark(coor1, {}, {
-						iconLayout: 'default#image',
-						iconImageHref: '/test/img/1.png',
-						iconImageSize: [45, 45],
+					this.connection.addEventListener("message", function (e)
+					{
+						const message = e.data;
+						console.log(message);
 					});
-					myMap.geoObjects.add(pers1);
-
-					const coor2 = [
-						result.geoObjects.position[0] - 0.0002,
-						result.geoObjects.position[1] - 0.0005
-					];
-					const pers2 = new ymaps.Placemark(coor2, {}, {
-						iconLayout: 'default#image',
-						iconImageHref: '/test/img/2.png',
-						iconImageSize: [45, 45],
-					});
-					myMap.geoObjects.add(pers2);
-
-
 				},
 				err =>
 				{
 					console.log('Ошибка: ' + err)
 				}
 			);
+		},
 
-			const socket = new WebSocket("ws://localhost:3001");
-
-			socket.addEventListener("open", function ()
-			{
-				console.log("CONNECTED");
-				console.log("open");
+		addPerson(data)
+		{
+			this.persons.push(data);
+			const pers = new ymaps.Placemark(data.position, {}, {
+				iconLayout: 'default#image',
+				iconImageHref: '/test/img/me.png',
+				iconImageSize: [30, 30],
+				iconImageOffset: [-35, -55]
 			});
-
-			document.addEventListener("click", function ()
-			{
-				console.log("click on document");
-				var userId = 1;
-				var login = 'loginName';
-				var position1 = 54.660901;
-				var position2 = 20.932067;
-				var coordinate = {position1, position2};
-				const message = {
-					userId: userId,
-					login: login,
-					coordinate: coordinate,
-					//method : 'getId',
-					//method : 'getUser',
-					//method : 'getLogin',
-					//method : 'getAvatar',
-					//method : 'getUserRounds',
-					//method : 'getRoundTasks',
-					//method : 'getAvatarFile',
-					//method : 'getUpdatedAt',
-					//method : 'getActive',
-					//method : 'other',
-				};
-				socket.send(JSON.stringify(message));
-			});
-
-			socket.addEventListener("message", function (e)
-			{
-				const message = e.data;
-				console.log(message);
-			});
+			this.map.geoObjects.add(pers);
 		}
 	}
 }
