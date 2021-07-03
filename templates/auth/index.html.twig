@@ -17,8 +17,8 @@
         </div>
         <div class="amogus-start-form">
             <form type="POST" enctype="multipart/form-data">
-                <label for="fileInput" class="amogus-start-photo-container"></label>
-                <input hidden id="fileInput" type="file" name="photo">
+                <label for="fileInput" id="imageContainer" class="amogus-start-photo-container"></label>
+                <input hidden id="fileInput" type="file" onchange="onFileSelected(event)" name="photo">
                 <input name="name" class="amogus-name-field" placeholder="Введите имя">
                 <button class="amogus-button amogus-buttons-start"><span>Начать игру</span></button>
             </form>
@@ -55,5 +55,19 @@
 <script>
 function showLoginPopup() {
 	document.getElementById('startPopup').className = 'amogus-start-container amogus-start-container-show';
+}
+function onFileSelected(event) {
+	var selectedFile = event.target.files[0];
+	var reader = new FileReader();
+
+	var imgtag = document.getElementById("imageContainer");
+	imgtag.title = selectedFile.name;
+
+	reader.onload = function(event) {
+		imgtag.style.backgroundImage = "url('" + event.target.result + "')";
+		imgtag.style.backgroundSize = "cover";
+	};
+
+	reader.readAsDataURL(selectedFile);
 }
 </script>
