@@ -9,15 +9,17 @@
 <div class="amogus-container">
     <div class="amogus-start-buttons-container">
         <div class="amogus-button amogus-button-specifications" href="#"><span>?</span></div>
-        <div class="amogus-button amogus-buttons-start"><span>Начать игру</span></div>
+        <div class="amogus-button amogus-buttons-start" onclick="showLoginPopup()"><span>Начать игру</span></div>
     </div>
-    <div class="amogus-start-container amogus-start-container-hide">
+    <div id="startPopup" class="amogus-start-container amogus-start-container-hide">
         <div class="amogus-handle">
         </div>
         <div class="amogus-start-form">
-            <div class="amogus-start-photo-container"></div>
-            <input class="amogus-name-field" placeholder="Введите имя">
-            <button class="amogus-button amogus-buttons-start"><span>Начать игру</span></button>
+            <form>
+                <div class="amogus-start-photo-container"><input hidden type="file"></div>
+                <input class="amogus-name-field" placeholder="Введите имя">
+                <button class="amogus-button amogus-buttons-start"><span>Начать игру</span></button>
+            </form>
         </div>
     </div>
     <div class="amogus-specificationis-container amogus-specificationis-container-hide">
@@ -49,5 +51,7 @@
 </html>
 
 <script>
-
+function showLoginPopup() {
+	document.getElementById('startPopup').className = 'amogus-start-container amogus-start-container-show';
+}
 </script>
