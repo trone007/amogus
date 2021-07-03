@@ -1,5 +1,10 @@
-.html {
-    font-family: Arial, serif;
+@font-face {
+    font-family: "Prosto";
+    src: url("prosto-one.ttf");
+}
+
+html {
+    font-family: "Prosto";
 }
 
 body {
@@ -28,6 +33,10 @@ body {
     position: relative;
     height: 100vh;
     overflow: hidden;
+    background-color: yellow;
+    background-image: url('logo.png');
+    background-size: 100%;
+    background-repeat: no-repeat;
 }
 
 .amogus-start-buttons-container {
@@ -38,40 +47,86 @@ body {
 }
 
 .amogus-button {
-    width: 90%;
-    height: 120px;
-    padding-top: 20px;
+
+}
+
+.amogus-button-specifications {
+    margin-left: 60%;
     text-align: center;
-    font-size: 80px;
-    margin-left: auto;
-    margin-right: auto;
-    border: 1px #ccc solid;
+    font-size: 70px;
+    height: 100px;
+    background-color: #fff;
+    padding-top: 30px;
+    box-shadow: 20px 20px 0 rgba(247,22,255,1);
+    width: 200px;
     margin-bottom: 50px;
+    transform: skew(15deg, 0);
+    transform: rotate(10deg);
+}
+
+.amogus-button-specifications span {
+    transform: rotate(-10deg);
+    display: block;
 }
 
 .amogus-buttons-start {
-    background-color: #ccc;
+    width: 85%;
+    height: 100px;
+    padding-top: 30px;
+    text-align: center;
+    font-size: 55px;
+    margin-left: auto;
+    margin-right: auto;
+    border: 1px #ccc solid;
+    margin-bottom: 130px;
+    background-color: #28FEFD;
+    box-shadow: 20px 20px 0 rgba(247,22,255,1);
+    transform: skew(-30deg, 0);
+}
+
+.amogus-buttons-start span {
+    transform: skew(30deg, 0);
+    display:block;
 }
 
 .amogus-name-field {
     width: 86%;
     height: 120px;
+    padding-top: 20px;
     font-size: 45px;
     text-align: left;
     margin-left: auto;
     margin-right: auto;
     display: block;
-    border: 1px #ccc solid;
-    margin-bottom: 30px;
-    padding: 0 0 0 4%;
+    padding: 0;
+    border: none;
+    border-bottom: 5px #ccc solid;
+    margin-bottom: 150px;
+    padding-left: 4%;
+    outline:none;
+}
+
+.amogus-name-field:focus {
+    border-bottom: 5px #E238A7 solid;
+}
+
+.amogus-name-field::placeholder {
+    color: #ccc;
 }
 
 .amogus-start-photo-container {
     width: 500px;
     height: 500px;
     background-color: #ccc;
-    margin: 100px auto;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 100px;
     border-radius: 500px;
+    background-image: url('camera.svg');
+    background-repeat: no-repeat;
+    background-size: 60%;
+    background-position: center;
+    background-color: yellow;
 }
 
 .amogus-imposter-project {
@@ -94,22 +149,27 @@ body {
 
 }
 
-.amogus-start-popup {
+.amogus-start-container {
     position: absolute;
-    border-radius: 50px;
-    width: 96%;
-    background-color: #fff;
-    left: 2%;
-    top: 20%;
+    width: 100%;
+    top: 10vh;
     z-index: 200;
+    height: 100%;
 }
 
-.amogus-start-popup-show {
+.amogus-start-container-show {
     display: block;
 }
 
-.amogus-start-popup-hide {
+.amogus-start-container-hide {
     display: none;
+}
+
+.amogus-start-form {
+    border-radius: 50px 50px 0 0;
+    background-color: #fff;
+    height: 100%;
+    padding-top: 100px;
 }
 
 .amogus-dark-backgruond {
@@ -140,20 +200,23 @@ body {
 
 .amogus-specifications-header {
     font-weight: bold;
-    font-size: 30px;
+    font-size: 40px;
+    color: #000;
 }
 
 .amogus-specificationis-text {
     background-color: #fff;
+    color: #999;
     border-radius: 50px 50px 0 0;
     height: 98.5%;
     padding-top: 20px;
     padding-left: 20px;
     padding-right: 20px;
-    font-size: 20px;
+    font-size: 30px;
+    line-height: 40px;
 }
 
-.amogus-specificationis-handle {
+.amogus-handle {
     width: 40%;
     margin-left: auto;
     margin-right: auto;
