@@ -12,7 +12,6 @@ export default {
 
 	mounted()
 	{
-		console.log("mounted");
 		const mapScript = document.createElement('script')
 		mapScript.setAttribute('src', 'https://api-maps.yandex.ru/2.1/?apikey=bfd21a41-ba64-49a3-a2bd-b7d139932aa5&lang=ru_RU')
 		document.head.appendChild(mapScript)
@@ -23,7 +22,6 @@ export default {
 	methods: {
 		initMap()
 		{
-			console.log("initMap");
 			const myMap = new ymaps.Map("map", {
 				center: [54.660901, 20.932067],
 				zoom: 19,
