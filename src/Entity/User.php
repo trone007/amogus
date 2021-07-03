@@ -66,6 +66,8 @@ class User
 
     public function __construct()
     {
+    	$this->updatedAt = new \DateTime('now');
+    	$this->active = true;
         $this->userRounds = new ArrayCollection();
         $this->roundTasks = new ArrayCollection();
     }
@@ -82,7 +84,7 @@ class User
 
     public function setName(string $name): self
     {
-        $this->тфname = $name;
+        $this->name = $name;
 
         return $this;
     }
@@ -171,7 +173,7 @@ class User
         return $this;
     }
 
-	public function setImageFile(File $avatarFile = null)
+	public function setAvatarFile(File $avatarFile = null)
 	{
 		$this->avatarFile = $avatarFile;
 
@@ -179,12 +181,14 @@ class User
 			// if 'updatedAt' is not defined in your entity, use another property
 			$this->updatedAt = new \DateTime('now');
 		}
+
+		return $this;
 	}
 
 	/**
-	 * @return File
+	 * @return ?File
 	 */
-	public function getAvatarFile(): File
+	public function getAvatarFile(): ?File
 	{
 		return $this->avatarFile;
 	}
@@ -195,16 +199,6 @@ class User
 	public function getUpdatedAt(): \DateTime
 	{
 		return $this->updatedAt;
-	}
-
-	/**
-	 * @param File $avatarFile
-	 * @return User
-	 */
-	public function setAvatarFile(File $avatarFile): User
-	{
-		$this->avatarFile = $avatarFile;
-		return $this;
 	}
 
 	/**

@@ -19,6 +19,12 @@ class RestController extends AbstractFOSRestController
 	public function index(): Response
 	{
 
-		return $this->render('auth/index.html.twig', []);
+		$users = $this->getDoctrine()->getRepository(User::class)
+			->findBy([
+				'active' => true
+			]);
+
+		$view = $this->view($users, 200);
+		return $this->handleView($view);
 	}
 }
