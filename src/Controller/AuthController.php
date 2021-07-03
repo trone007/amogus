@@ -33,7 +33,6 @@ class AuthController extends AbstractController
 	 */
 	public function login(Request $request): Response
 	{
-//		var_dump($this->get('session')->get('userId'));die;
 //		if ($this->get('session')->get('userId'))
 //		{
 //			return $this->redirect("/game");
