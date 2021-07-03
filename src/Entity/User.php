@@ -8,6 +8,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\File;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Symfony\Component\Serializer\Annotation\MaxDepth;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
@@ -44,11 +45,13 @@ class User
     private $login;
 
     /**
+	 * @MaxDepth(1)
      * @ORM\OneToMany(targetEntity=UserRound::class, mappedBy="user")
      */
     private $userRounds;
 
     /**
+	 * @MaxDepth(1)
      * @ORM\OneToMany(targetEntity=RoundTask::class, mappedBy="completedBy")
      */
     private $roundTasks;

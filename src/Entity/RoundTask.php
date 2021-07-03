@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\RoundTaskRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\MaxDepth;
 
 /**
  * @ORM\Entity(repositoryClass=RoundTaskRepository::class)
@@ -18,19 +19,22 @@ class RoundTask
     private $id;
 
     /**
+	 * @MaxDepth(1)
      * @ORM\ManyToOne(targetEntity=Round::class, inversedBy="roundTasks")
      * @ORM\JoinColumn(nullable=false)
      */
     private $round;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Task::class, inversedBy="roundTasks")
+	 * @MaxDepth(1)
+	 * @ORM\ManyToOne(targetEntity=Task::class, inversedBy="roundTasks")
      * @ORM\JoinColumn(nullable=false)
      */
     private $task;
 
     /**
-     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="roundTasks")
+	 *  @MaxDepth(1)
+	 * @ORM\ManyToOne(targetEntity=User::class, inversedBy="roundTasks")
      */
     private $completedBy;
 

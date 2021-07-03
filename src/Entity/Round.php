@@ -6,12 +6,18 @@ use App\Repository\RoundRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\MaxDepth;
 
 /**
  * @ORM\Entity(repositoryClass=RoundRepository::class)
  */
 class Round
 {
+	const STATUSES = [
+		'ACTIVE' => 'ACTIVE',
+		'COMPLETED' => 'COMPLETED'
+	];
+
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
@@ -30,12 +36,14 @@ class Round
     private $location_name;
 
     /**
-     * @ORM\OneToMany(targetEntity=UserRound::class, mappedBy="round")
+	 * @MaxDepth(1)
+	 * @ORM\OneToMany(targetEntity=UserRound::class, mappedBy="round")
      */
     private $userRounds;
 
     /**
-     * @ORM\OneToMany(targetEntity=RoundTask::class, mappedBy="round")
+	 * @MaxDepth(1)
+	 * @ORM\OneToMany(targetEntity=RoundTask::class, mappedBy="round")
      */
     private $roundTasks;
 
