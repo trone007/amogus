@@ -2,6 +2,7 @@
 namespace App\Websocket;
 
 use App\Entity\User;
+use App\Service\RoundServiceInterface;
 use Doctrine\ORM\EntityManagerInterface;
 use Exception;
 use Ratchet\ConnectionInterface;
@@ -17,10 +18,16 @@ class MessageHandler implements MessageComponentInterface
 	 */
 	private $manager;
 
-	public function __construct(EntityManagerInterface $manager)
+	/**
+	 * @var RoundServiceInterface
+	 */
+	private $roundService;
+
+	public function __construct(EntityManagerInterface $manager, RoundServiceInterface $roundService)
 	{
 		$this->manager = $manager;
 		$this->connections = new SplObjectStorage;
+		$this->roundService = $roundService;
 	}
 
 	public function onOpen(ConnectionInterface $conn)
