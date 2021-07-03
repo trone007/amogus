@@ -32,7 +32,7 @@ class AuthController extends AbstractController
 		$login = $this->translit($name);
 
 		$user = $this->getDoctrine()->getRepository(User::class)
-			->findBy([
+			->findOneByBy([
 				'login' => $login
 			]);
 
