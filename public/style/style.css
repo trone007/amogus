@@ -1,6 +1,6 @@
 @font-face {
     font-family: "Prosto";
-    src: url("public/style/prosto-one.ttf");
+    src: url("prosto-one.ttf");
 }
 
 html {
@@ -67,6 +67,7 @@ body {
 .amogus-button-specifications span {
     transform: rotate(-10deg);
     display: block;
+    cursor: pointer;
 }
 
 .amogus-buttons-start {
