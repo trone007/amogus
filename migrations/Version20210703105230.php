@@ -32,7 +32,7 @@ final class Version20210703105230 extends AbstractMigration
         $this->addSql('CREATE INDEX IDX_F7C9CA85A6005CA0 ON round_task (round_id)');
         $this->addSql('CREATE INDEX IDX_F7C9CA858DB60186 ON round_task (task_id)');
         $this->addSql('CREATE INDEX IDX_F7C9CA8585ECDE76 ON round_task (completed_by_id)');
-        $this->addSql('ALTER TABLE user ADD COLUMN active BOOLEAN NOT NULL');
+        $this->addSql('ALTER TABLE user ADD COLUMN active BOOLEAN DEFAULT true');
         $this->addSql('DROP INDEX IDX_272C116CA6005CA0');
         $this->addSql('DROP INDEX IDX_272C116CA76ED395');
         $this->addSql('CREATE TEMPORARY TABLE __temp__user_round AS SELECT id, round_id, user_id, role, status FROM user_round');

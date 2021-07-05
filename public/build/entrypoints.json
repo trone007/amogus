@@ -2,9 +2,9 @@
   "entrypoints": {
     "game": {
       "js": [
-        "/build/runtime.js",
-        "/build/vendors-node_modules_core-js_modules_es_array_map_js-node_modules_core-js_modules_es_object_t-4f9427.js",
-        "/build/game.js"
+        "/build/runtime.203dfe59.js",
+        "/build/637.9f245572.js",
+        "/build/game.9e8438dc.js"
       ]
     }
   }
